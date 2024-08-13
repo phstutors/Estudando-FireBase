@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendendo Dark Mode</title>
+    <link rel="stylesheet" href="dist/tailwind.css">
+</head>
+<body class="h-[100vh] dark:bg-gray-700">
+  <nav class="container">
+    <button id="toggle-dark-mode" class="px-4 py-2 text-white rounded">
+      <img src="https://png.pngtree.com/png-vector/20230411/ourmid/pngtree-moon-icon-with-little-stars-vector-png-image_6700656.png" class="w-12" alt=""> 
+    </button>
+    <button id="toggle-light-mode" class="px-4 py-2 text-white rounded hidden">
+      <img src="https://images.vexels.com/media/users/3/155831/isolated/lists/50756fe2a2ce35255b8db339a683bd6d-icone-de-sol-tropical.png" class="w-12" alt="">
+    </button>
+  </nav>
+
+  <main class="text-center flex items-center justify-center w-full ">
+  
+      <button class="w-[40%] bg-green-600 rounded p-2 text-white hover:bg-indigo-900" id="enviar" onclick="logout()">
+        logout
+      </button>
+
+  </main>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmV2hmNFOIkgcH-h2XvgaoRmhpv1i8pQI",
+            authDomain: "if-hub-bd995.firebaseapp.com",
+            projectId: "if-hub-bd995",
+            storageBucket: "if-hub-bd995.appspot.com",
+            messagingSenderId: "907490756551",
+            appId: "1:907490756551:web:1b44d045189e399ea8fbe2",
+            measurementId: "G-9MZR7VXMHV"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        function logout(){
+          firebase.auth().signOut().then(()=>{
+            window.location.href = "sla.html"
+          })
+        }
+
+
+
+    const buttonDark = document.getElementById('toggle-dark-mode');
+    const buttonLight = document.getElementById('toggle-light-mode');
+
+    buttonDark.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      buttonDark.classList.add('hidden');
+      buttonLight.classList.remove('hidden');
+    });
+
+    buttonLight.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      buttonLight.classList.add('hidden');
+      buttonDark.classList.remove('hidden');
+    });
+
+
+
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Conta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #e74c3c;
+        }
+        button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c0392b;
+        }
+        .message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Excluir Conta</h1>
+        <p>Tem certeza de que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
+        <button onclick="deleteAccount()">Excluir Conta</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDmV2hmNFOIkgcH-h2XvgaoRmhpv1i8pQI",
+            authDomain: "if-hub-bd995.firebaseapp.com",
+            projectId: "if-hub-bd995",
+            storageBucket: "if-hub-bd995.appspot.com",
+            messagingSenderId: "907490756551",
+            appId: "1:907490756551:web:1b44d045189e399ea8fbe2",
+            measurementId: "G-9MZR7VXMHV"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Verifica se o usuário está autenticado
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) {
+                // Usuário não está autenticado, redireciona para a página de login
+                window.location.href = "sla.html";
+            }
+        });
+
+        function deleteAccount() {
+            const user = firebase.auth().currentUser;
+            if (user) {
+                user.delete().then(() => {
+                    document.getElementById('message').innerText = 'Sua conta foi excluída com sucesso.';
+                    setTimeout(() => {
+                        window.location.href = "sla.html"; // Redireciona para a página de login após a exclusão
+                    }, 2000);
+                }).catch(error => {
+                    document.getElementById('message').innerText = `Erro: ${error.message}`;
+                });
+            } else {
+                document.getElementById('message').innerText = 'Você não está autenticado.';
+            }
+        }
+    </script>
+</body>
+</html>

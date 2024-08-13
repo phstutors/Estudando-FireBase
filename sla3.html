@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Recuperar Senha</h2>
+        <form id="resetPasswordForm">
+            <input type="email" id="email" placeholder="Digite seu e-mail" required>
+            <button type="submit">Enviar Link de Recuperação</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth-compat.js"></script>
+    <script>
+            const firebaseConfig = {
+            apiKey: "AIzaSyDmV2hmNFOIkgcH-h2XvgaoRmhpv1i8pQI",
+            authDomain: "if-hub-bd995.firebaseapp.com",
+            projectId: "if-hub-bd995",
+            storageBucket: "if-hub-bd995.appspot.com",
+            messagingSenderId: "907490756551",
+            appId: "1:907490756551:web:1b44d045189e399ea8fbe2",
+            measurementId: "G-9MZR7VXMHV"
+        };
+
+        // Inicializa o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        const auth = firebase.auth();
+
+document.getElementById('resetPasswordForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('email').value;
+    const messageElement = document.getElementById('message');
+
+    auth.sendPasswordResetEmail(email)
+        .then(() => {
+            messageElement.textContent = 'Link de recuperação enviado! Verifique seu e-mail.';
+            messageElement.style.color = 'green';
+        })
+        .catch((error) => {
+            messageElement.textContent = `Erro: ${error.message}`;
+            messageElement.style.color = 'red';
+        });
+});
+    </script>
+</body>
+</html>
